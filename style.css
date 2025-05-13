@@ -1,0 +1,56 @@
+/* Estilo pastel y limpio */
+body {
+    background-color: #fefaf5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h2 {
+    color: #5e4b56;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.table-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 0 15px rgba(180, 160, 180, 0.1);
+}
+
+.table th {
+    background-color: #ffe0ec !important;
+    color: #5e4b56;
+    text-align: center;
+}
+
+.table td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.btn-success {
+    background-color: #ffb3c6;
+    border: none;
+}
+
+.btn-success:hover {
+    background-color: #ff8ba7;
+}
+
+.btn-danger {
+    background-color: #f67280;
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #c44569;
+}
+
+.modal-header {
+    background-color: #ffdde1;
+}
+
+.modal-title {
+    color: #5e4b56;
+    font-weight: 600;
+}
