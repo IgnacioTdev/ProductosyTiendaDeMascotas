@@ -1,20 +1,40 @@
 <?php
-require_once 'config/database.php';
+require_once 'models/Categoria.php';
 
-echo "<h2>Prueba de conexión a la base de datos</h2>";
+class CategoriaController
+{
+    private $modelo;
 
-try {
-    // Intentamos ejecutar una consulta simple
-    $stmt = $conexion->query("SHOW TABLES");
-
-    echo "<p style='color: green;'>✅ Conexión exitosa a la base de datos <strong>tiendademascotas</strong>.</p>";
-
-    echo "<h4>Tablas encontradas:</h4>";
-    echo "<ul>";
-    while ($fila = $stmt->fetch(PDO::FETCH_NUM)) {
-        echo "<li>" . htmlspecialchars($fila[0]) . "</li>";
+    public function __construct($conexion)
+    {
+        // Crear una instancia del modelo
+        $this->modelo = new Categoria($conexion);
     }
-    echo "</ul>";
-} catch (PDOException $e) {
-    echo "<p style='color: red;'>❌ Error al conectar o consultar: " . $e->getMessage() . "</p>";
+
+    // Método para crear una categoría
+    public function crear()
+    {
+        // Si el formulario fue enviado (POST)
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $nombre = $_POST['nombre'] ?? '';  // Toma el valor del campo 'nombre'
+
+            if (!empty($nombre)) {
+                // Llamar al modelo para guardar la categoría
+                $resultado = $this->modelo->crear($nombre);
+
+                if ($resultado) {
+                    // Redirigir al listado de categorías si todo salió bien
+                    header('Location: index.php?action=index');  // Cambia según tu lógica de redirección
+                    exit;
+                } else {
+                    echo "Hubo un problema al guardar la categoría.";
+                }
+            } else {
+                echo "El nombre de la categoría no puede estar vacío.";
+            }
+        }
+
+        // Si no es un POST, mostramos el formulario de creación
+        require 'views/vistaCategoria/crear.php';
+    }
 }

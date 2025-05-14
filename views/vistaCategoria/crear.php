@@ -3,23 +3,23 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Agregar Categoría</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Categoría</title>
 </head>
 
-<body class="container py-4">
+<body>
 
-    <h1>Agregar Nueva Categoría</h1>
+    <h1>Crear Nueva Categoría</h1>
 
-    <form action="index.php?controller=Categoria&action=crear" method="POST" class="mt-4">
-        <div class="mb-3">
-            <label for="nombre" class="form-label">Nombre de la Categoría</label>
-            <input type="text" name="nombre" id="nombre" class="form-control" required>
+    <form action="index.php?action=crear" method="POST">
+        <div>
+            <label for="nombre">Nombre de la Categoría:</label>
+            <input type="text" name="nombre" id="nombre" required>
         </div>
-        <button type="submit" class="btn btn-success">Guardar</button>
-        <a href="index.php?controller=Categoria&action=index" class="btn btn-secondary">Cancelar</a>
+        <button type="submit">Crear</button>
     </form>
 
+    <a href="index.php?action=index">Volver a la lista de categorías</a>
 
 </body>
 

@@ -12,14 +12,14 @@ class Categoria
     // Método para crear una categoría
     public function crear($nombre)
     {
-        // Prepara la consulta SQL
-        $stmt = $this->db->prepare("INSERT INTO Categorias (Nombre_Categoria) VALUES (:nombre)");
+        // Preparar la consulta SQL
+        $sql = "INSERT INTO Categorias (Nombre_Categoria) VALUES (:nombre)";
+        $stmt = $this->db->prepare($sql);
 
-        // Ejecuta la consulta
-        if ($stmt->execute([':nombre' => $nombre])) {
-            return true;  // Retorna true si la inserción fue exitosa
-        } else {
-            return false; // Retorna false si hubo un error
-        }
+        // Ejecutar la consulta
+        $stmt->execute([':nombre' => $nombre]);
+
+        // Retornar el resultado de la ejecución
+        return $stmt->rowCount() > 0;
     }
 }
