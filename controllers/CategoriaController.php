@@ -23,6 +23,9 @@ class CategoriaController
     // Método para crear la categoría
     public function crear()
     {
+        // Debugging: Verifica si los datos llegan
+        var_dump($_POST); // Muestra el contenido de $_POST
+        die();  // Detiene la ejecución para ver los datos
         // Si el formulario fue enviado (POST)
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $nombre = $_POST['nombre'] ?? '';  // Toma el valor del campo 'nombre'
