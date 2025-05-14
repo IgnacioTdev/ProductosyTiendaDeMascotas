@@ -1,59 +1,48 @@
 <?php
 require_once 'models/Categoria.php';
 
+require_once 'config/database.php';  // Asegúrate de incluir la configuración de conexión
+
+// Llama a la conexión de la base de datos
+$conexion = require_once 'config/database.php';
+
+// Luego, pasa esta conexión al controlador
+$controller = new CategoriaController($conexion);
+
+
 class CategoriaController
 {
-    private Categoria $modelo;
+    private $modelo;
 
-    public function __construct(mysqli $conexion)
+    public function __construct($conexion)
     {
+        // Asumiendo que el modelo se conecta a la base de datos
         $this->modelo = new Categoria($conexion);
     }
 
-    public function index()
-    {
-        $categorias = $this->modelo->obtenerTodas();
-        require 'views/categorias/index.php';
-    }
-
+    // Método para crear la categoría
     public function crear()
     {
+        // Si el formulario fue enviado (POST)
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $nombre = $_POST['nombre'] ?? '';
+            $nombre = $_POST['nombre'] ?? '';  // Toma el valor del campo 'nombre'
+
             if (!empty($nombre)) {
-                $this->modelo->crear($nombre);
-                header('Location: index.php?controller=Categoria&action=index');
-                exit;
+                // Llama al modelo para guardar la categoría
+                $resultado = $this->modelo->crear($nombre);
+                if ($resultado) {
+                    // Redirige al listado de categorías si todo salió bien
+                    header('Location: index.php?controller=Categoria&action=index');
+                    exit;
+                } else {
+                    echo "Hubo un problema al guardar la categoría.";
+                }
+            } else {
+                echo "El nombre de la categoría no puede estar vacío.";
             }
         }
 
-        require 'views/categorias/crear.php';
-    }
-
-    public function editar()
-    {
-        $id = $_GET['id'] ?? null;
-
-        if (!$id) {
-            header('Location: index.php?controller=Categoria&action=index');
-            exit;
-        }
-
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $nombre = $_POST['nombre'] ?? '';
-            if (!empty($nombre)) {
-                $this->modelo->actualizar((int)$id, $nombre);
-                header('Location: index.php?controller=Categoria&action=index');
-                exit;
-            }
-        }
-
-        $categoria = $this->modelo->obtenerPorID((int)$id);
-        if (!$categoria) {
-            echo "Categoría no encontrada.";
-            return;
-        }
-
-        require 'views/categorias/editar.php';
+        // Si no es un POST, mostramos el formulario de creación
+        require 'views/vistaCategoria/crear.php';
     }
 }

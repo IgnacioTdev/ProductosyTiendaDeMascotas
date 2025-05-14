@@ -2,42 +2,27 @@
 
 class Categoria
 {
-    private mysqli $conexion;
+    private $db;
 
-    public function __construct(mysqli $conexion)
+    public function __construct($conexion)
     {
-        $this->conexion = $conexion;
+        $this->db = $conexion;
     }
 
-    public function obtenerTodas(): array
+    // Método para crear una categoría
+    public function crear($nombre)
     {
-        $sql = "SELECT * FROM Categorias";
-        $resultado = $this->conexion->query($sql);
+        // Prepara la consulta SQL
+        $stmt = $this->db->prepare("INSERT INTO Categorias (Nombre_Categoria) VALUES (?)");
 
-        return $resultado ? $resultado->fetch_all(MYSQLI_ASSOC) : [];
-    }
-
-    public function obtenerPorID(int $id): ?array
-    {
-        $stmt = $this->conexion->prepare("SELECT * FROM Categorias WHERE ID_Categoria = ?");
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $resultado = $stmt->get_result();
-
-        return $resultado->num_rows > 0 ? $resultado->fetch_assoc() : null;
-    }
-
-    public function crear(string $nombre): bool
-    {
-        $stmt = $this->conexion->prepare("INSERT INTO Categorias (Nombre_Categoria) VALUES (?)");
+        // Vincula el parámetro para la consulta
         $stmt->bind_param("s", $nombre);
-        return $stmt->execute();
-    }
 
-    public function actualizar(int $id, string $nombre): bool
-    {
-        $stmt = $this->conexion->prepare("UPDATE Categorias SET Nombre_Categoria = ? WHERE ID_Categoria = ?");
-        $stmt->bind_param("si", $nombre, $id);
-        return $stmt->execute();
+        // Ejecuta la consulta
+        if ($stmt->execute()) {
+            return true;  // Retorna true si la inserción fue exitosa
+        } else {
+            return false; // Retorna false si hubo un error
+        }
     }
 }
