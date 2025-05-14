@@ -1,8 +1,8 @@
 <?php
 $host = 'localhost';
-$db = 'tiendademascotas'; // exactamente como fue creada
+$db = 'tiendaDeMascotas'; // exactamente como fue creada
 $user = 'root';
-$pass = 'root';
+$pass = '';
 $charset = 'utf8mb4'; // ¡corregido!
 
 $dsn = "mysql:host=$host;port=3306;dbname=$db;charset=$charset";
