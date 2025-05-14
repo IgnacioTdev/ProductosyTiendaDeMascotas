@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS Salidas (
     Motivo_Salida VARCHAR(255),
     Precio_Venta DECIMAL(10, 2),
     FOREIGN KEY (Producto_ID) REFERENCES Productos(ID_Producto)
-);
+);git 
 
 -- Tabla de Usuarios
 CREATE TABLE IF NOT EXISTS Usuarios (
@@ -64,18 +64,6 @@ CREATE TABLE IF NOT EXISTS Usuarios (
     Fecha_Creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Tabla de Movimientos
-CREATE TABLE IF NOT EXISTS Movimientos (
-    ID_Movimiento INT AUTO_INCREMENT PRIMARY KEY,
-    Producto_ID INT,
-    Tipo_Movimiento ENUM('Entrada', 'Salida') NOT NULL,
-    Cantidad INT NOT NULL,
-    Fecha_Movimiento TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    Usuario_ID INT,
-    Motivo VARCHAR(255),
-    FOREIGN KEY (Producto_ID) REFERENCES Productos(ID_Producto),
-    FOREIGN KEY (Usuario_ID) REFERENCES Usuarios(ID_Usuario)
-);
 
 
 -- Tabla de Clientes
