@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS Salidas (
     Motivo_Salida VARCHAR(255),
     Precio_Venta DECIMAL(10, 2),
     FOREIGN KEY (Producto_ID) REFERENCES Productos(ID_Producto)
-);git 
+);
 
 -- Tabla de Usuarios
 CREATE TABLE IF NOT EXISTS Usuarios (
@@ -92,5 +92,5 @@ CREATE TABLE IF NOT EXISTS Ventas (
 -- Crear índices para mejorar el rendimiento
 CREATE INDEX idx_producto_codigo ON Productos(Codigo_Producto);
 CREATE INDEX idx_producto_nombre ON Productos(Nombre);
-CREATE INDEX idx_movimiento_fecha ON Movimientos(Fecha_Movimiento);
+
 
