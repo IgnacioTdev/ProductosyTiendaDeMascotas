@@ -13,10 +13,7 @@ class Categoria
     public function crear($nombre)
     {
         // Prepara la consulta SQL
-        $stmt = $this->db->prepare("INSERT INTO categorias (Nombre_Categoria) VALUES (?)");
-
-        // Vincula el parámetro para la consulta
-        $stmt->bind_param("s", $nombre);
+        $stmt = $this->db->prepare("INSERT INTO Categorias (Nombre_Categoria) VALUES (:nombre)");
 
         // Ejecuta la consulta
         if ($stmt->execute([':nombre' => $nombre])) {
